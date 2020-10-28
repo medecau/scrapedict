@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "scrapedict"
 version = "0.1.0"
-description = "Scrape HTML to dicts"
+description = "Scrape HTML to dictionaries"
 authors = ["Pedro Rodrigues <medecau@gmail.com>"]
 
 [tool.poetry.dependencies]
