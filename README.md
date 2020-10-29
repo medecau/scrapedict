@@ -1,15 +1,18 @@
 **Scrape HTML to dictionaries**
 
+
 # Usage overview
 
-1. Define the rules dictionary to extract the right bits
-2. Create the extraction function passing in the rules
-3. Use the extraction function on the BeautifulSoup object
+1. Create a dictionary with rules to extract the right information
+2. Create the extraction function with the rules dictionary
+3. Use the extraction function on a BeautifulSoup object
 
-# Usage examples
 
-0. `cook` the HTML to get a BeautifulSoup objext - here we store it in the `soup` variable
+# Examples
+
+0. To start let's `cook` the HTML to get a BeautifulSoup object.
    For this example the string in `sample` will be used as the target HTML - normally you would fetch the HTML with your favorite HTTP library or read from the disk.
+   The `soup` variable holds the BeautifulSoup object.
 
 ```python
 from pprint import pprint
@@ -48,6 +51,7 @@ sample = """<html>
 soup = sd.cook(sample)
 ```
 
+
 ## Extract a single item
 
 1. Define a `rules` dictionary
@@ -61,6 +65,7 @@ rules = {
 ```
 
 2. Create an extractor function feeding it the rules
+
 _`item_extractor` is a function that knows how to extract your item from any `soup`_
 
 ```python
@@ -85,6 +90,7 @@ _output:_
 </header>}
 ```
 
+
 ## Extract multiple items
 
 1. Define the `rules` to extract *each* item
@@ -94,6 +100,7 @@ rules = dict(description=sd.text(".description"), url=sd.attr("a", "href"))
 ```
 
 2. Create the extractor function passing in a selector where the rules should be applied
+
 _this selector should emmit multiple items_
 
 ```python
@@ -108,15 +115,19 @@ items_list = list_item_extractor(soup)
 pprint(items_list)
 ```
 
+_output:_
+
 ```python
 [{'description': 'first', 'url': 'http://first.example.com'},
  {'description': 'second', 'url': 'http://second.example.com'},
  {'description': 'third', 'url': 'http://third.example.com'}]
 ```
 
+
 # Testing
 
 For testing use `tox`
 
 _all environments in parallel_
-```tox -p```
+
+```$ tox -p```
