@@ -2,7 +2,6 @@ from contextlib import suppress
 
 from bs4 import BeautifulSoup
 from parse import compile as compile_parse_pattern
-from parse import findall as _parse
 
 
 def cook(html):
