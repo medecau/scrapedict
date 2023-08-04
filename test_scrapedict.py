@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-import scrapedict as sd
 
+import scrapedict as sd
 
 sample = """<html>
 <head>
