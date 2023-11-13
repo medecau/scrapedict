@@ -1,7 +1,8 @@
+import warnings
 from contextlib import suppress
 
 from bs4 import BeautifulSoup
-from parse import compile as compile_parse_pattern
+from parse import compile as parse_compile
 
 
 def cook(html):
@@ -31,8 +32,8 @@ def text(selector):
     return text_selector
 
 
-def parse(selector, pattern):
-    compiled_pattern = compile_parse_pattern(pattern)
+def match(selector, pattern):
+    compiled_pattern = parse_compile(pattern)
 
     def parse_selector(soup):
         with suppress(AttributeError, TypeError):
@@ -41,8 +42,11 @@ def parse(selector, pattern):
     return parse_selector
 
 
-def extract(fields):
-    def extractor(soup):
+def parse(selector, pattern):
+    warnings.warn("parse is deprecated, use match instead", DeprecationWarning)
+
+    return match(selector, pattern)
+
         with suppress(TypeError):
             return {field: selector(soup) for field, selector in fields.items()}
         return {}
