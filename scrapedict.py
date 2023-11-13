@@ -6,7 +6,7 @@ from parse import compile as parse_compile
 
 
 def cook(html):
-    return BeautifulSoup(html)
+    return html if isinstance(html, BeautifulSoup) else BeautifulSoup(html)
 
 
 def html(selector):
@@ -47,17 +47,24 @@ def parse(selector, pattern):
 
     return match(selector, pattern)
 
+
+def extract(fields, html_soup=None):
+    def extractor(html):
+        soup = cook(html)
         with suppress(TypeError):
             return {field: selector(soup) for field, selector in fields.items()}
         return {}
 
-    return extractor
+    return extractor(html_soup) if html_soup else extractor
 
 
-def extract_all(selector, fields):
-    def extract_all_selector(soup):
+def extract_all(selector, fields, html_soup=None):
+    item_extractor = extract(fields)
+
+    def all_extractor(html):
+        soup = cook(html)
         with suppress(TypeError):
-            return list(map(extract(fields), soup.select(selector)))
+            return list(map(item_extractor, soup.select(selector)))
         return []
 
-    return extract_all_selector
+    return all_extractor(html_soup) if html_soup else all_extractor
