@@ -58,3 +58,20 @@ def test_match(soup):
     parse_article_selector = sd.parse("article", "Paragraph of the {}.")
 
     assert parse_article_selector(soup)[0] == "article"
+
+
+def test_extract_with_soup(soup):
+    fields = {
+        "title": sd.text("title"),
+        "header": sd.text("h1"),
+        "article": sd.text("article"),
+        "footer": sd.text("footer"),
+    }
+    data = sd.extract(fields, soup)
+
+    assert data == {
+        "title": "Page title",
+        "header": "Big Header",
+        "article": "Paragraph of the article.",
+        "footer": "Page footer - link",
+    }

@@ -24,10 +24,11 @@ def attr(selector, attr_name):
     return attr_selector
 
 
-def text(selector):
-    def text_selector(soup):
+def text(selector, strip=True):
+    def text_selector(soup, strip=strip):
         with suppress(AttributeError):
-            return soup.select_one(selector).get_text()
+            txt = soup.select_one(selector).get_text()
+            return txt.strip() if strip else txt
 
     return text_selector
 
