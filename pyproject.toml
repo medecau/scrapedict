@@ -3,6 +3,7 @@ name = "scrapedict"
 version = "0.2.0"
 description = "Scrape HTML to dictionaries"
 authors = ["Pedro Rodrigues <medecau@gmail.com>"]
+readme = "README.md"
 homepage = "https://github.com/medecau/scrapedict"
 
 [tool.poetry.dependencies]
