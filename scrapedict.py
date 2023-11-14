@@ -6,7 +6,13 @@ from parse import compile as parse_compile
 
 
 def cook(html):
-    return html if isinstance(html, BeautifulSoup) else BeautifulSoup(html)
+    if not isinstance(html, str):
+        return html
+    
+    try:
+        return BeautifulSoup(html, "lxml")
+    except Exception:
+        return BeautifulSoup(html, "html.parser")
 
 
 def html(selector):

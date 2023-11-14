@@ -13,6 +13,13 @@ sample = """<html>
   </header>
   <article>
     <p>Paragraph of the article.</p>
+    <p>
+      <ul class="items">
+        <li class="item"><span class="name">Item 1</span><span class="price">9.99</span></li>
+        <li class="item"><span class="name">Item 2</span><span class="price">19.99</span></li>
+        <li class="item"><span class="name">Item 3</span><span class="price">29.99</span></li>
+      </ul>
+    </p>
   </article>
   <footer><i>Page footer - <a href="http://example.com/">link</a></i></footer>
 </body>
@@ -60,7 +67,7 @@ def test_match(soup):
     assert parse_article_selector(soup)[0] == "article"
 
 
-def test_extract_with_soup(soup):
+def test_extract_with_rules_dict(soup):
     fields = {
         "title": sd.text("title"),
         "header": sd.text("h1"),
@@ -75,3 +82,16 @@ def test_extract_with_soup(soup):
         "article": "Paragraph of the article.",
         "footer": "Page footer - link",
     }
+
+def test_extract_all_with_rules_dict(soup):
+    fields = {
+        "name": sd.text(".name"),
+        "price": sd.text(".price"),
+    }
+    data = sd.extract_all(".item", fields, soup)
+
+    assert data == [
+        {"name": "Item 1", "price": "9.99"},
+        {"name": "Item 2", "price": "19.99"},
+        {"name": "Item 3", "price": "29.99"},
+    ]
