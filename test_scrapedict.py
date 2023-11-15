@@ -62,7 +62,7 @@ def test_text(soup):
 
 
 def test_match(soup):
-    parse_article_selector = sd.parse("article", "Paragraph of the {}.")
+    parse_article_selector = sd.match("article", "Paragraph of the {}.")
 
     assert parse_article_selector(soup)[0] == "article"
 

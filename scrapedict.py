@@ -49,12 +49,6 @@ def match(selector, pattern):
     return parse_selector
 
 
-def parse(selector, pattern):
-    warnings.warn("parse is deprecated, use match instead", DeprecationWarning)
-
-    return match(selector, pattern)
-
-
 def extract(fields, html_soup=None):
     def extractor(html):
         soup = cook(html)
