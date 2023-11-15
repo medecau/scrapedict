@@ -12,14 +12,17 @@ sample = """<html>
     <h1>Big Header</h1>
   </header>
   <article>
-    <p>Paragraph of the article.</p>
-    <p>
-      <ul class="items">
-        <li class="item"><span class="name">Item 1</span><span class="price">9.99</span></li>
-        <li class="item"><span class="name">Item 2</span><span class="price">19.99</span></li>
-        <li class="item"><span class="name">Item 3</span><span class="price">29.99</span></li>
-      </ul>
-    </p>
+    <p>Paragraph of the article.
+    
+    Force new-line characters into the text.
+
+    âœ” No problem.</p>
+    
+    <ul class="items">
+      <li class="item"><span class="name">Item 1</span><span class="price">9.99</span></li>
+      <li class="item"><span class="name">Item 2</span><span class="price">19.99</span></li>
+      <li class="item"><span class="name">Item 3</span><span class="price">29.99</span></li>
+    </ul>
   </article>
   <footer><i>Page footer - <a href="http://example.com/">link</a></i></footer>
 </body>
@@ -71,7 +74,7 @@ def test_extract_with_rules_dict(soup):
     fields = {
         "title": sd.text("title"),
         "header": sd.text("h1"),
-        "article": sd.text("article"),
+        "article": sd.text("article p"),
         "footer": sd.text("footer"),
     }
     data = sd.extract(fields, soup)
@@ -79,9 +82,10 @@ def test_extract_with_rules_dict(soup):
     assert data == {
         "title": "Page title",
         "header": "Big Header",
-        "article": "Paragraph of the article.",
+        "article": "Paragraph of the article. Force new-line characters into the text. ✔ No problem.",
         "footer": "Page footer - link",
     }
+
 
 def test_extract_all_with_rules_dict(soup):
     fields = {

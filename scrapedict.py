@@ -2,13 +2,15 @@ import warnings
 from contextlib import suppress
 
 from bs4 import BeautifulSoup
+from ftfy import fix_text as ftfy_fix_text
+from normality import collapse_spaces as normality_collapse_spaces
 from parse import compile as parse_compile
 
 
 def cook(html):
     if not isinstance(html, str):
         return html
-    
+
     try:
         return BeautifulSoup(html, "lxml")
     except Exception:
@@ -30,11 +32,25 @@ def attr(selector, attr_name):
     return attr_selector
 
 
-def text(selector, strip=True):
+def text(selector, fix_text=True, colapse_spaces=True, strip=False):
     def text_selector(soup, strip=strip):
         with suppress(AttributeError):
             txt = soup.select_one(selector).get_text()
-            return txt.strip() if strip else txt
+
+            if fix_text:
+                txt = ftfy_fix_text(txt)
+
+            if colapse_spaces:
+                txt = normality_collapse_spaces(txt)
+
+            if strip:
+                warnings.warn(
+                    "strip is deprecated, use colapse_spaces instead",
+                    DeprecationWarning,
+                )
+                txt = txt.strip()
+
+            return txt
 
     return text_selector
 
