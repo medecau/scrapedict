@@ -14,7 +14,8 @@ ftfy = "^6.1.1"
 normality = "^2.5.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^6.1"
+pytest = "^7.1"
+pytest-markdown-docs = "^0.4.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

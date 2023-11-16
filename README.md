@@ -18,55 +18,52 @@
 # Usage
 
 ```python
->>> from pprint import pprint
->>> import scrapedict as sd
->>> from urllib.request import urlopen
+import scrapedict as sd
+from urllib.request import urlopen
 
 # Fetch the content from the Urban Dictionary page for "larping"
->>> url = "https://www.urbandictionary.com/define.php?term=larping"
->>> content = urlopen(url).read().decode()
+url = "https://www.urbandictionary.com/define.php?term=larping"
+content = urlopen(url).read().decode()
 
 # Define the fields to be extracted
->>> fields = {
-...     "word": sd.text(".word"),
-...     "meaning": sd.text(".meaning"),
-...     "example": sd.text(".example"),
-... }
+fields = {
+    "word": sd.text(".word"),
+    "meaning": sd.text(".meaning"),
+    "example": sd.text(".example"),
+}
 
 # Extract the data using scrapedict
->>> item = sd.extract(fields, content)
+item = sd.extract(fields, content)
 
 # The result is a dictionary with the word, its meaning, and an example usage.
 # Here, we perform a couple of assertions to demonstrate the expected structure and content.
->>> assert isinstance(item, dict)
->>> assert item["word"] == "Larping"
-
+assert isinstance(item, dict)
+assert item["word"] == "Larping"
 ```
 
 
 # The orange site example
 
 ```python
->>> import scrapedict as sd
->>> from urllib.request import urlopen
+import scrapedict as sd
+from urllib.request import urlopen
 
 # Fetch the content from the Hacker News homepage
->>> url = "https://news.ycombinator.com/"
->>> content = urlopen(url).read().decode()
+url = "https://news.ycombinator.com/"
+content = urlopen(url).read().decode()
 
 # Define the fields to extract: title and URL for each news item
->>> fields = {
-...     "title": sd.text(".titleline a"),
-...     "url": sd.attr(".titleline a", "href"),
-... }
+fields = {
+    "title": sd.text(".titleline a"),
+    "url": sd.attr(".titleline a", "href"),
+}
 
 # Use scrapedict to extract all news items as a list of dictionaries
->>> items = sd.extract_all(".athing", fields, content)
+items = sd.extract_all(".athing", fields, content)
 
 # The result is a list of dictionaries, each containing the title and URL of a news item.
 # Here, we assert that 30 items are extracted, which is the typical number of news items on the Hacker News homepage.
->>> assert len(items) == 30
-
+assert len(items) == 30
 ```
 
 
