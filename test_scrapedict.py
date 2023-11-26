@@ -53,15 +53,15 @@ def test_html(soup):
 
 
 def test_attr(soup):
-    attr_href_selector = sd.attr("a", "href")
+    attr_href_selector = sd.attr("footer a", "href")
 
-    assert attr_href_selector(soup) == soup.a["href"]
+    assert attr_href_selector(soup) == "http://example.com/"
 
 
 def test_text(soup):
-    text_h1_selector = sd.text("h1")
+    text_h1_selector = sd.text("head title")
 
-    assert text_h1_selector(soup) == soup.h1.string
+    assert text_h1_selector(soup) == "Page title"
 
 
 def test_match(soup):
