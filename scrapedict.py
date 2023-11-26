@@ -56,7 +56,7 @@ def text(selector, fix_text=True, colapse_spaces=True, strip=False):
 
 
 def match(selector, pattern):
-    compiled_pattern = parse_compile(pattern)
+    compiled_pattern = parse_compile(pattern, case_sensitive=False)
 
     def parse_selector(soup):
         with suppress(AttributeError, TypeError):

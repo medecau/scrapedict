@@ -19,9 +19,9 @@ sample = """<html>
     âœ” No problem.</p>
     
     <ul class="items">
-      <li class="item"><span class="name">Item 1</span><span class="price">9.99</span></li>
-      <li class="item"><span class="name">Item 2</span><span class="price">19.99</span></li>
-      <li class="item"><span class="name">Item 3</span><span class="price">29.99</span></li>
+      <li class="item"><span class="name">Item 1</span> - <span class="price">9.99</span></li>
+      <li class="item"><span class="name">Item 2</span> - <span class="price">19.99</span></li>
+      <li class="item"><span class="name">Item 3</span> - <span class="price">29.99</span></li>
     </ul>
   </article>
   <footer><i>Page footer - <a href="http://example.com/">link</a></i></footer>
@@ -65,9 +65,9 @@ def test_text(soup):
 
 
 def test_match(soup):
-    parse_article_selector = sd.match("article", "Paragraph of the {}.")
+    parse_article_selector = sd.match(".item", "item 1 - {:f}")
 
-    assert parse_article_selector(soup)[0] == "article"
+    assert parse_article_selector(soup)[0] == 9.99
 
 
 def test_extract_with_rules_dict(soup):
