@@ -1,4 +1,12 @@
+$ hidden files
 .*
-poetry.lock
-__pycache__
+# lock files
+*.lock
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
 dist/
+wheels/
+*.egg-info
