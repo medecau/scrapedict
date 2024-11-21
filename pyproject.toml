@@ -1,22 +1,28 @@
-[tool.poetry]
+[project]
 name = "scrapedict"
-version = "0.3.0"
+version = "0.3.1"
 description = "Scrape HTML to dictionaries"
-authors = ["Pedro Rodrigues <medecau@gmail.com>"]
 readme = "README.md"
+requires-python = "<4.0,>=3.8"
+dependencies = [
+    "beautifulsoup4<5.0,>=4.4",
+    "parse<2.0,>=1.18",
+    "ftfy<7.0.0,>=6.1.1",
+    "normality<3.0.0,>=2.5.0",
+]
+authors = [
+    {name = "Pedro Rodrigues", email = "me@pdbr.org"},
+]
+
+[dependency-groups]
+dev = [
+    "pytest<9.0.0,>=8.0.2",
+    "pytest-markdown-docs<1.0.0,>=0.4.3",
+]
+
+[project.urls]
 homepage = "https://github.com/medecau/scrapedict"
 
-[tool.poetry.dependencies]
-python = "^3.8"
-beautifulsoup4 = "^4.4"
-parse = "^1.18"
-ftfy = "^6.1.1"
-normality = "^2.5.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.1"
-pytest-markdown-docs = "^0.4.3"
-
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
