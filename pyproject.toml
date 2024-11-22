@@ -26,3 +26,25 @@ homepage = "https://github.com/medecau/scrapedict"
 [build-system]
 requires = ['setuptools']
 build-backend = 'setuptools.build_meta'
+
+[tool.tox]
+requires = ["tox>=4.19"]
+env_list = ["3.13", "3.8", "doctest", "lint"]
+
+[tool.tox.env_run_base]
+description = "Run test under {base_python}"
+deps = ["pytest"]
+commands = [["pytest"]]
+
+[tool.tox.env.doctest]
+description = "Run doctests"
+deps = ["pytest", "pytest-markdown-docs"]
+commands = [["pytest", "--markdown-docs"]]
+
+[tool.tox.env.lint]
+description = "Run linters"
+deps = ["ruff"]
+commands = [
+    ["ruff", "check", "."],
+    ["ruff", "format", "--check", "."],
+]
