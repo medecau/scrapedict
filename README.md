@@ -38,7 +38,7 @@ item = sd.extract(fields, content)
 # The result is a dictionary with the word, its meaning, and an example usage.
 # Here, we perform a couple of assertions to demonstrate the expected structure and content.
 assert isinstance(item, dict)
-assert item["word"] == "Larping"
+assert item["word"].lower() == "larping"
 ```
 
 
@@ -62,13 +62,12 @@ fields = {
 items = sd.extract_all(".athing", fields, content)
 
 # The result is a list of dictionaries, each containing the title and URL of a news item.
-# Here, we assert that 30 items are extracted, which is the typical number of news items on the Hacker News homepage.
+# Here, we assert that 30 items are extracted, which is the expected number of news items on the Hacker News homepage.
 assert len(items) == 30
 ```
 
 
 # Development
 
-Dependencies are managed with [Poetry](https://python-poetry.org/).
-
+Dependencies are managed with [uv](https://github.com/astral-sh/uv).
 Testing is done with [Tox](https://tox.readthedocs.io/en/latest/).
